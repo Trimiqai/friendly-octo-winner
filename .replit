@@ -43,3 +43,8 @@ timeoutMs = 20000
 [nix]
 channel = "stable-25_05"
 packages = ["freetype", "lcms2", "libimagequant", "libjpeg", "libjpeg_turbo", "libpng", "libtiff", "libwebp", "libxcrypt", "openjpeg", "pkg-config", "tcl", "tk", "which", "zlib"]
+
+[userenv]
+
+[userenv.shared]
+MASTER_API_KEY = "resr_rUgLOz0aNDlPl9QPG2_qlFxanXDVxhHkumHy9cXWd14"
