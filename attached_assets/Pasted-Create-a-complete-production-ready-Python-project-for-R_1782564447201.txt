@@ -1,0 +1,363 @@
+Create a complete production-ready Python project for Replit using FastAPI that provides AI image and video upscaling.
+
+Requirements:
+
+Project Stack:
+- Python 3.11
+- FastAPI
+- Uvicorn
+- FFmpeg
+- Real-ESRGAN
+- Pillow
+- OpenCV
+- aiofiles
+- python-multipart
+
+Features:
+
+1. Image Upscaling
+- POST /upscale-image
+- Accept JPG, PNG, WEBP
+- Upscale using Real-ESRGAN (4x)
+- Return PNG image
+- Preserve transparency if available.
+
+2. Video Upscaling
+- POST /upscale-video
+- Accept MP4, MOV, MKV, AVI
+- Automatically:
+    - Save uploaded video
+    - Extract all frames using FFmpeg
+    - Upscale every frame using Real-ESRGAN
+    - Merge frames back into video using FFmpeg
+    - Copy original audio into output
+    - Return final upscaled MP4
+
+3. Performance
+- Process frames sequentially to reduce RAM.
+- Delete temporary files automatically.
+- Show processing progress in logs.
+- Support videos up to 5 minutes.
+- Handle errors gracefully.
+
+4. Security
+- API Key authentication.
+- Read API key from environment variable:
+API_KEY
+
+Header:
+X-API-Key
+
+Return HTTP 401 if invalid.
+
+5. API Endpoints
+
+GET /
+Returns API information.
+
+GET /health
+Returns:
+{
+"status":"online"
+}
+
+POST /upscale-image
+
+POST /upscale-video
+
+6. Automatic Model Setup
+
+If Real-ESRGAN model weights do not exist:
+Automatically download them.
+
+Store inside:
+models/
+
+7. File Structure
+
+main.py
+
+requirements.txt
+
+utils/
+
+video.py
+
+image.py
+
+auth.py
+
+models/
+
+temp/
+
+output/
+
+8. Logging
+
+Log:
+Upload received
+Frame extraction started
+Frame count
+Upscaling progress
+Merge started
+Completed
+Execution time
+
+9. Replit Compatibility
+
+Generate everything needed for Replit.
+
+Include:
+
+.replit
+
+requirements.txt
+
+README.md
+
+No manual configuration required.
+
+10. Code Quality
+
+Use async FastAPI.
+
+Modular architecture.
+
+Type hints.
+
+Comments.
+
+Proper exception handling.
+
+No deprecated libraries.
+
+11. Output
+
+Return JSON like:
+
+{
+"success":true,
+"processing_time":"32.4 sec",
+"download_url":"..."
+}
+
+12. FFmpeg
+
+Automatically detect FFmpeg.
+
+If missing:
+Install or show helpful error.
+
+13. Real-ESRGAN
+
+Use realesrgan-ncnn-vulkan if available.
+
+Fallback to Python implementation.
+
+14. Make the project production ready.
+
+Generate every required file.
+
+Do not leave TODOs.
+
+Generate complete working source code.
+
+15. Public API
+
+The API must be accessible from external applications and Telegram bots.
+
+Enable CORS for all origins.
+
+Generate OpenAPI documentation.
+
+Provide Swagger UI at:
+/docs
+
+Provide ReDoc at:
+/redoc
+
+16. API Response
+
+After uploading an image or video, return:
+
+{
+  "success": true,
+  "file_id": "...",
+  "download_url": "...",
+  "processing_time": "...",
+  "expires_in": "24h"
+}
+
+17. Static Files
+
+Serve processed files from:
+
+/download/{filename}
+
+18. API Usage
+
+The API must be fully usable by:
+- Android Apps
+- iOS Apps
+- Telegram Bots
+- Discord Bots
+- Websites
+- Python Scripts
+- Node.js Applications
+
+19. Authentication
+
+Every request must require:
+
+Header:
+X-API-Key
+
+The API key must be stored in environment variables.
+
+20. README
+
+Include examples for:
+
+Python
+
+JavaScript
+
+cURL
+
+Telegram Bot
+
+showing exactly how to call the API.
+
+21. Deployment
+
+Automatically expose the FastAPI server on the public Replit URL so the API can be called externally.
+
+22. Processing Queue
+
+Implement a background job queue for video processing.
+
+Each uploaded job must receive a unique Job ID.
+
+Users must be able to check processing status.
+
+GET /status/{job_id}
+
+Possible responses:
+
+queued
+
+extracting_frames
+
+upscaling
+
+merging_video
+
+completed
+
+failed
+
+23. Download Endpoint
+
+Provide:
+
+GET /download/{job_id}
+
+to download the processed image or video.
+
+24. Upload Limits
+
+Maximum upload size:
+1 GB
+
+Reject larger files with proper JSON error.
+
+25. GPU Detection
+
+Automatically detect GPU.
+
+If GPU exists:
+Use realesrgan-ncnn-vulkan.
+
+Otherwise:
+Fallback to CPU implementation automatically.
+
+26. Background Tasks
+
+Video processing must run in background.
+
+API should immediately return:
+
+{
+  "success": true,
+  "job_id": "...",
+  "status": "queued"
+}
+
+27. Automatic Cleanup
+
+Delete temporary files after 24 hours.
+
+Delete unfinished temporary folders if processing fails.
+
+28. Docker Support
+
+Generate:
+Dockerfile
+docker-compose.yml
+
+29. Railway Deployment
+
+Generate everything required for Railway deployment.
+
+30. Telegram Bot Ready
+
+The API must be optimized for Telegram bots.
+
+Return JSON responses suitable for Telegram automation.
+
+31. API Versioning
+
+Base URL:
+
+/api/v1/
+
+Example:
+
+POST /api/v1/upscale-image
+
+POST /api/v1/upscale-video
+
+GET /api/v1/status/{job_id}
+
+GET /api/v1/download/{job_id}
+
+32. Licensing
+
+Use only open-source libraries with compatible licenses.
+
+Do not use proprietary or paid SDKs.
+
+33. Testing
+
+Generate pytest unit tests for all API endpoints.
+
+34. Health Monitoring
+
+GET /metrics
+
+Return:
+
+CPU usage
+
+RAM usage
+
+Disk usage
+
+Queue size
+
+GPU status
+
+35. Production Ready
+
+The project must run immediately after importing into Replit or Railway without requiring manual code changes.

@@ -1,0 +1,1 @@
+- [Real-ESRGAN PyTorch inference](realesrgan-inference.md) — self-contained RRDBNet avoids basicsr/CUDA disk-quota issues; numpy BGR→RGB needs .copy() before torch.from_numpy.
